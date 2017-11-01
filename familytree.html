@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<meta content = "text/html; charset = ISO-8859-1" http-equiv = "content-type">
+	
+    <script type="text/javascript">
+
+	  //draw on wordtree
+      google.charts.load('current', {packages:['wordtree']});
+      google.charts.setOnLoadCallback(drawChart);
+	  
+      function drawChart() {
+	  
+        data = google.visualization.arrayToDataTable(
+		
+		
+          [ ['Phrases'], //  loadJson()
+            ['Ahmadi_Mangunah Suparmo_SitiAmanah Aziz'],
+            ['Ahmadi_Mangunah Suparmo_SitiAmanah Afif'],
+            ['Ahmadi_Mangunah bude_pakde A'],
+            ['Ahmadi_Mangunah bude_pakde B'],
+            ['Ahmadi_Mangunah bude_pakde C'],
+            ['Ahmadi_Mangunah bude_pakde D'],
+            ['Ahmadi_Mangunah bulek_paklek A'],
+            ['Ahmadi_Mangunah bulek_paklek B'],
+            ['Ahmadi_Mangunah bulek_paklek C'],
+            ['Ahmadi_Mangunah bulek_paklek D'],
+            ['Ahmadi_Mangunah bulek_paklek E'],
+          ]
+		
+		
+        );
+		/*
+		function loadJson() {
+		$(document).ready(function(){
+				$.getJSON("https://spreadsheets.google.com/feeds/list/1LVbq67nPlQmBZHmoirMz8xvyRrbMfpiXPcA0VNtiJhg/od6/public/values?alt=json", function(result){
+			
+				  var i
+				  for (i in result.feed.entry) {
+						
+						$.each(result.feed.entry[i].gsx$generasi1, function(key, value){
+							$(this).append("[" + value + " ");
+						});
+						
+						$.each(result.feed.entry[i].gsx$generasi2, function(key, value){
+							$(this).append(value + " ");
+						});
+						
+						 $.each(result.feed.entry[i].gsx$generasi3, function(key, value){
+							$(this).append(value + "],");
+						});
+				  }
+					
+				});
+			});
+		}; 
+	*/
+        var options = {
+          wordtree: {
+            format: 'implicit',
+//			sentenceSeparator: ',',
+            word: 'Ahmadi_Mangunah'
+          }
+        };
+
+        var chart = new google.visualization.WordTree(document.getElementById('wordtree basic'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+	<p id="test"></p>
+    <div id="wordtree basic" style="width: 900px; height: 500px;"></div>
+  </body>
+</html
