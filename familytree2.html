@@ -31,7 +31,7 @@
         // and any other code you want to hold until the async operation is complete
       });    
 	      
-       var data = google.visualization.arrayToDataTable(text); //or .. .arrayToDataTable(items) dont show anything
+       var data = google.visualization.arrayToDataTable(items); // .. .arrayToDataTable(text) dont show anything
 		
       function loadnewdata() {
 		 return $.getJSON("https://spreadsheets.google.com/feeds/list/1LVbq67nPlQmBZHmoirMz8xvyRrbMfpiXPcA0VNtiJhg/od6/public/values?alt=json", function(json){
