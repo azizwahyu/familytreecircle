@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<meta content = "text/html; charset = ISO-8859-1" http-equiv = "content-type">
+	
+    <script type="text/javascript">
+	
+
+	  //draw on wordtree
+      google.charts.load('current', {packages:['wordtree']});
+      google.charts.setOnLoadCallback(drawChart);
+	  
+      function drawChart() {
+    	var items = [['Phrase'],
+          			 ['id childLabel parent size'],
+                     ];
+        /*var text = "";
+        var text = [];
+        var load;
+        var i;
+       
+            for (i = 0; i < items.length; i++) {
+          //  text += "[" + items[i] + "],";
+          	text.push(items[i]);
+            }
+       */
+      // var items2,
+      // 	   items3,
+           
+       loadnewdata().done(function () {
+        var i, text = "";
+       	
+            for (i = 0; i < items.length; i++) {
+            text += "[" + items[i] + "],";
+         // text.push(items[i]);
+            }
+        text = "[" + text + "]";    
+            
+      //  items2 = text.toString();
+      //  items3 = items
+      alert(items);
+       	alert(text);
+        
+        
+            // and any other code you want to hold until the async operation is complete
+        });    
+       var data = google.visualization.arrayToDataTable(text);
+		
+     function loadnewdata() {
+		 return $.getJSON("https://spreadsheets.google.com/feeds/list/1LVbq67nPlQmBZHmoirMz8xvyRrbMfpiXPcA0VNtiJhg/od6/public/values?alt=json", function(json){
+			  
+			  var i;
+				for (i in json.feed.entry) {
+
+					$.each(json.feed.entry[i].gsx$generasi1, function(index, item) {
+					  var edit1 = item;
+					  items.push(edit1);
+
+					});
+					
+					$.each(json.feed.entry[i].gsx$generasi2, function(index, item) {
+					  var edit1 = item;
+					  items.push(edit1);
+
+					});
+					
+					$.each(json.feed.entry[i].gsx$generasi3, function(index, item) {
+					  var edit1 = item;
+					  items.push(edit1);
+
+					});
+				   
+				}
+                
+              //items.push(items3);
+             // console.log(items);
+             // alert(items);
+			//	items.push("]");
+
+		  });
+        };
+        
+		
+       // alert(items);
+		
+        var options = {
+        //  colors: ['black', 'black', 'black'],
+          wordtree: {
+            format: 'implicit',
+//			sentenceSeparator: ',',
+            word: 'Ahmadi_Mangunah',
+            type: 'suffix'
+          }
+        };
+
+        var chart = new google.visualization.WordTree(document.getElementById('wordtree basic'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+	<p id="test"></p>
+    <div id="wordtree basic" style="width: 900px; height: 500px;"></div>
+  </body>
+</html
