@@ -13,22 +13,10 @@
 	  
       function drawChart() {
     	var items = [['Phrase'],
-          			 ['id childLabel parent size'],
+          	     ['Anonim'],
                      ];
-        /*var text = "";
-        var text = [];
-        var load;
-        var i;
-       
-            for (i = 0; i < items.length; i++) {
-          //  text += "[" + items[i] + "],";
-          	text.push(items[i]);
-            }
-       */
-      // var items2,
-      // 	   items3,
-           
-       loadnewdata().done(function () {
+          
+     loadnewdata().done(function () {
         var i, text = "";
        	
             for (i = 0; i < items.length; i++) {
@@ -37,17 +25,15 @@
             }
         text = "[" + text + "]";    
             
-      //  items2 = text.toString();
-      //  items3 = items
-      alert(items);
-       	alert(text);
-        
-        
-            // and any other code you want to hold until the async operation is complete
-        });    
-       var data = google.visualization.arrayToDataTable(text);
+      
+        alert(items);
+        alert(text);
+        // and any other code you want to hold until the async operation is complete
+      });    
+	      
+       var data = google.visualization.arrayToDataTable(text); //or .. .arrayToDataTable(items) dont show anything
 		
-     function loadnewdata() {
+      function loadnewdata() {
 		 return $.getJSON("https://spreadsheets.google.com/feeds/list/1LVbq67nPlQmBZHmoirMz8xvyRrbMfpiXPcA0VNtiJhg/od6/public/values?alt=json", function(json){
 			  
 			  var i;
@@ -73,22 +59,20 @@
 				   
 				}
                 
-              //items.push(items3);
-             // console.log(items);
-             // alert(items);
-			//	items.push("]");
+             //items.push(items3);
+             //console.log(items);
+             //alert(items);
+	     //items.push("]");
 
 		  });
-        };
+       };
         
-		
-       // alert(items);
-		
-        var options = {
-        //  colors: ['black', 'black', 'black'],
+	
+      var options = {
+        //colors: ['black', 'black', 'black'],
           wordtree: {
             format: 'implicit',
-//			sentenceSeparator: ',',
+	  //sentenceSeparator: ',',
             word: 'Ahmadi_Mangunah',
             type: 'suffix'
           }
