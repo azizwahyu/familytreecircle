@@ -1,0 +1,386 @@
+var margin = {top: 20, right: 120, bottom: 20, left: 200},
+    width = 960 - margin.right - margin.left,
+    height = 800 - margin.top - margin.bottom;
+    
+var i = 0,
+    duration = 750,
+    root;
+
+var tree = d3.layout.tree()
+    .size([height, width]);
+
+var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.y, d.x]; });
+
+var svg = d3.select("#graph").append("svg")
+    .attr("width", width + margin.right + margin.left)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var tooltip = d3.select("#graph").append("div")
+		.attr("class", "tooltip")
+		.style("opacity", 0);
+
+var flare = 
+{
+ "name": "Khasan Ahmadi & Mangunah",
+ "children": [
+  {
+   "name": "Djanatun & Walidi",
+   "children": [
+    {
+     "name": "Nur Watiningsih & Dwi Heriyanto",
+     "children": [
+      {"name": "Tegar Fauzan Maulana", "size": 3938},
+      {"name": "Syafiq Rizki Sya'bani", "size": 3812}
+     ]
+    },
+    {
+     "name": "Dwi Zainudin & Ani Astuti",
+     "children": [
+      {"name": "Aisha Afifa Rafif", "size": 3534},
+      {"name": "Akmal Azmi Sakhi", "size": 5731}
+     ]
+    },
+	{
+     "name": "Wakhit Suharyati & Ridwan Mei Rohdiyana",
+     "children": [
+      {"name": "Nadia Jauzaa Diyana", "size": 3534}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Asrofi'ah & Nurul Muttaqin",
+   "children": [
+    {
+     "name": "Fauzi Al Muttaqin & Yanri Suhartati",
+     "children": [
+      {"name": "Alifa Nur Azizah", "size": 3938},
+      {"name": "Muhammad Faiz", "size": 3812},
+      {"name": "Rizki Naila Suhaimah", "size": 3812},
+      {"name": "Ahnaf Abdurrahman", "size": 3812}
+     ]
+    },
+	{
+     "name": "Alfian Nur Isnaini & Edi Sarwoko",
+     "children": [
+      {"name": "Muh Arkan Al Faruq", "size": 3938},
+      {"name": "Ahmad Rizki Taqiyyudin", "size": 3812},
+      {"name": "Aisyah Khansa Azzahra", "size": 3812}
+     ]
+    },
+    {
+     "name": "Astriah Rahmawati & Ali Syaifudin",
+     "children": [
+      {"name": "Yafi Ahmad Muazzam", "size": 3534}
+     ]
+    },
+	{
+     "name": "Amriatus Syafaah", "size": 5731
+    }
+   ]
+  },
+  {
+   "name": "Isti Khotimah & Kusman",
+   "children": [
+    {
+     "name": "Arif Hidayat & Wahyuni Suka",
+     "children": [
+      {"name": "Dzaky Muhammad Arif", "size": 3938},
+      {"name": "Nidaan Khofiyya Arif", "size": 3812}
+     ]
+    },
+	{
+     "name": "Arifatun Khasanah & Fajar", "size": 5731
+    },
+	{
+     "name": "Muh Miftahurrohman", "size": 5731
+    }
+   ]
+  },
+  {
+   "name": "Suistilah"
+  },
+  {
+   "name": "Suparmo & Siti Amanah",
+   "children": [
+    {
+     "name": "Aziz Wahyu Kuncoro", "size": 5731
+	},
+	{
+     "name": "Zaenal Afif Azhary", "size": 5731
+    }
+   ]
+  },
+  {
+   "name": "Sumaryam & Sudikan",
+   "children": [
+    {
+     "name": "Ibnu Sauri Apriandi & Ika Jimi",
+     "children": [
+      {"name": "Julio Abiyasa Rahandika", "size": 3938}
+     ]
+    },
+	{
+     "name": "Irwandi Tamamudin", "size": 5731
+    },
+	{
+     "name": "Nur Annisa Fitri Azzahra", "size": 5731
+    }
+   ]
+  },
+  {
+   "name": "Nuroyanah & Subardi",
+   "children": [
+    {
+     "name": "M Fadhil Hilmawan", "size": 5731
+	},
+	{
+	 "name": "Jihan Azmi Nur Fikri", "size": 5731
+    }
+   ]
+  },
+  {
+   "name": "Muh Saparudin & Indriyanah",
+   "children": [
+    {
+     "name": "Dini Indri Saputri", "size": 5731
+	},
+	{
+	 "name": "Jauharah Jilan", "size": 5731
+	},
+	{
+	 "name": "Sajid Rafi Ramadhan", "size": 5731
+    }
+   ]
+  },
+  {
+   "name": "Tuti Amanah & Sahudi",
+   "children": [
+    {
+     "name": "Muttia Amalish Sholekha", "size": 5731
+	},
+	{
+	 "name": "Salma Salsabilla", "size": 5731
+	},
+	{
+	 "name": "Riasti Kauniyah", "size": 5731
+	},
+	{
+	 "name": "Putri Mudita Cahyani", "size": 5731
+    }
+   ]
+  },
+  {
+   "name": "Ahmad Wazin & Citra Nur Malahayati",
+   "children": [
+    {
+     "name": "Ridhwan Naufal Syahman", "size": 5731
+	},
+	{
+	 "name": "Rahma Almira Khairunnisa", "size": 5731
+	},
+	{
+	 "name": "Rafli Rafasya Azzaky", "size": 5731
+    }
+   ]
+  }
+ ]
+};
+root = flare;
+root.x0 = height / 2;
+root.y0 = 0;
+
+//to make colorful link
+//var colors = d3.scale.category10();
+
+function update(source) {
+
+  // Compute the new tree layout.
+  var nodes = tree.nodes(root).reverse(),
+      links = tree.links(nodes);
+
+  // Normalize for fixed-depth.
+  nodes.forEach(function(d) { d.y = d.depth * 180; });
+
+  // Update the nodes…
+  var node = svg.selectAll("g.node")
+      .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+  // Enter any new nodes at the parent's previous position.
+  var nodeEnter = node.enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+   // .on("click", click)
+	  .on("click", function(d) { toggle(d); update(d); })
+      .on("mouseover", mouseover)
+      .on("mouseout", mouseout);
+
+  nodeEnter.append("circle")
+      .attr("r", 1e-6)
+      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+  nodeEnter.append("text")
+      .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+      .attr("dy", ".35em")
+      .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+      .text(function(d) { return d.name; })
+      .style("fill-opacity", 1e-6);
+
+  // Transition nodes to their new position.
+  var nodeUpdate = node.transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+  nodeUpdate.select("circle")
+      .attr("r", 4.5)
+      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+  nodeUpdate.select("text")
+      .style("fill-opacity", 1);
+
+  // Transition exiting nodes to the parent's new position.
+  var nodeExit = node.exit().transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+      .remove();
+
+  nodeExit.select("circle")
+      .attr("r", 1e-6);
+
+  nodeExit.select("text")
+      .style("fill-opacity", 1e-6);
+
+  // Update the links…
+  var link = svg.selectAll("path.link")
+      .data(links, function(d) { return d.target.id; });
+
+  // Enter any new links at the parent's previous position.
+  link.enter().insert("path", "g")
+      .attr("class", "link")
+  //    .style("stroke",function(d,i){return colors(i);})
+      .attr("d", function(d) {
+        var o = {x: source.x0, y: source.y0};
+        return diagonal({source: o, target: o});
+      });
+
+  // Transition links to their new position.
+  link.transition()
+      .duration(duration)
+      .attr("d", diagonal);
+
+  // Transition exiting nodes to the parent's new position.
+  link.exit().transition()
+      .duration(duration)
+      .attr("d", function(d) {
+        var o = {x: source.x, y: source.y};
+        return diagonal({source: o, target: o});
+      })
+      .remove();
+
+  // Stash the old positions for transition.
+  nodes.forEach(function(d) {
+    d.x0 = d.x;
+    d.y0 = d.y;
+  });
+  
+  d3.select("svg")
+        .call(d3.behavior.zoom()
+              .scaleExtent([0.5, 5])
+              .on("zoom", zoom));
+    
+}
+
+// Toggle children on click. off
+/*function click(d) {
+  if (d.children) {
+    d._children = d.children;
+    d.children = null;
+  } else {
+    d.children = d._children;
+    d._children = null;
+  }
+  update(d);
+}*/
+
+// Toggle children.
+function toggle(d) {
+    if (d.children) {
+        d._children = d.children;
+        d.children = null;
+    } else {
+        d.children = d._children;
+        d._children = null;
+    }
+    
+}
+
+//Toggle zoom
+var zoom = function() {
+    var scale = d3.event.scale,
+        translation = d3.event.translate,
+        tbound = -height * scale,
+        bbound = height * scale,
+        lbound = (-width + margin.right) * scale,
+        rbound = (width - margin.left) * scale;
+    // limit translation to thresholds
+    translation = [
+        Math.max(Math.min(translation[0], rbound), lbound),
+        Math.max(Math.min(translation[1], bbound), tbound)
+    ];
+    svg.attr("transform", "translate(" + translation + ")" + " scale(" + scale + ")");
+}
+
+// Tooltip
+function mouseover(d) {
+   tooltip
+       .transition()
+       .duration(100)
+       .style("opacity", .9);
+    
+  tooltip
+    //.html(d.name  + ": " + d.id)
+	  .html(d.name)
+      .style("top", (d3.event.pageY-10)+"px")
+      .style("left",(d3.event.pageX+10)+"px");
+}
+
+// Toggle children on click.
+function mouseout(d) {
+    tooltip.transition()
+    .duration(200)
+    .style("opacity", 0);
+}
+
+/* //just expand first children
+function collapse(d) {
+  if (d.children) {
+    d._children = d.children;
+    d._children.forEach(collapse);
+    d.children = null;
+  }
+} */
+
+// expand all
+function expand(d){   
+    var children = (d.children)?d.children:d._children;
+    if (d._children) {        
+        d.children = d._children;
+        d._children = null;       
+    }
+    if(children)
+      children.forEach(expand);
+}
+
+var botao = d3.select("#form #button");
+botao.on("click", function(){toggle(root); update(root);});
+
+
+//root.children.forEach(collapse);
+root.children.forEach(expand);
+//expand(root);
+update(root);
+
+//d3.select(self.frameElement).style("height", "800px");
